@@ -162,6 +162,7 @@ INSTALLED_APPS = (
     'DynamicAnalyzer',
     'MobSF',
     'MalwareAnalyzer',
+    'Extensions'
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -435,6 +436,11 @@ LOGGING = {
             'propagate': False,
         },
         'DynamicAnalyzer': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'Extensions': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             'propagate': False,
