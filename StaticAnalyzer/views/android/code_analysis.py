@@ -25,7 +25,7 @@ def code_analysis(app_dir, perms, typ):
         logger.info('Static Android Code Analysis Started')
         api_rules = android_apis.APIS
         code_rules = android_rules.RULES
-        code_findings = {}
+        code_findings = {}code_fcode_findingsindings
         api_findings = {}
         email_n_file = []
         url_n_file = []

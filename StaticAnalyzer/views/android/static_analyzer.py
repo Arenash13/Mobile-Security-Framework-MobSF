@@ -10,12 +10,12 @@ import MalwareAnalyzer.views.Trackers as Trackers
 import MalwareAnalyzer.views.VirusTotal as VirusTotal
 from MalwareAnalyzer.views.apkid import apkid_analysis
 from MalwareAnalyzer.views.domain_check import malware_check
-
 from django.conf import settings
 from django.http import HttpResponseRedirect
+import django.template.loader as template_loader
 from django.shortcuts import render
 from django.template.defaulttags import register
-
+from django.template import Template
 from MobSF.utils import (
     file_size,
     is_file_exists,
@@ -43,6 +43,9 @@ from StaticAnalyzer.views.shared_func import (firebase_analysis,
                                               update_scan_timestamp)
 
 from androguard.core.bytecodes import apk
+
+import inspect
+import Extensions
 
 try:
     import io
@@ -221,6 +224,11 @@ def static_analyzer(request, api=False):
                         'Performing Malware Check on extracted Domains')
                     code_an_dic['domains'] = malware_check(
                         list(set(code_an_dic['urls_list'])))
+
+                    # Perform analysis extension defined in "extension" module
+                    logging.info("Start analysis extensions")                    
+                    Extensions.static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic)
+
                     # Copy App icon
                     copy_icon(app_dic['md5'], app_dic['icon_path'])
                     app_dic['zipped'] = 'apk'
@@ -283,6 +291,11 @@ def static_analyzer(request, api=False):
                 if api:
                     return context
                 else:
+                    
+                    # Add extension template to template
+                    templ = Template(template_loader.get_template(template))
+                    templ.
+                    # logger.info(' '.join("%s: %s" % item for item in attr.items()))
                     return render(request, template, context)
             elif typ == 'zip':
                 # Check if in DB
@@ -467,6 +480,9 @@ def static_analyzer(request, api=False):
                 if api:
                     return context
                 else:
+                    
+                    # Add extension template to template
+                    
                     return render(request, template, context)
             else:
                 err = ('Only APK,IPA and Zipped '
