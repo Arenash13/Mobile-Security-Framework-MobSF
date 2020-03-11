@@ -84,6 +84,18 @@
               </p>
             </a>
           </li>
+
+          <!-- Custom links -->
+          {% for custom in custom_analysis %}
+            {% if 'title' in custom %} 
+              <li class="nav-item">
+                <a href="#{{custom.title}}" class="nav-link">
+                  <p>{{custom.title}}</p>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          
           <li class="nav-item">
             <a href="#android_api" class="nav-link">
               <i class="nav-icon fab fa-android"></i>

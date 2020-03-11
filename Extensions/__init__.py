@@ -31,8 +31,11 @@ def static_analysis_extension(app_path, platform, typ, code_an_dic):
                 custom_analysis = analysis.perform_analysis(
                     app_path, typ, code_an_dic)
                 if custom_analysis != None:
-                    custom_analysis_list.append(
-                        {'report': custom_analysis, 'template_file': analysis.get_template()})
-                    logger.info(custom_analysis_list[-1]['report'])
+                    report = {'report': custom_analysis, 'template_file': analysis.get_template()} 
+                    
+                    # Used for the custom link in the sidebar
+                    if hasattr(analysis, "get_title"):
+                        report['title'] = analysis.get_title()
+                    custom_analysis_list.append(report)
     return custom_analysis_list                
                 
