@@ -294,18 +294,11 @@ def static_analyzer(request, api=False):
 
                 # load the custom analysis to json to iterate through it in the template
                 context['custom_analysis'] = json.loads(context['custom_analysis'])
-
+                
                 template = 'static_analysis/android_binary_analysis.html'
                 if api:
                     return context
                 else:
-                    logger.info("loading binary analysis template")
-                    
-                    customs = []
-                    for temp in context['custom_analysis']:
-                        customs.append(loader.render_to_string(temp['template_file'], temp['report']))
-
-                    logger.info(customs[0])    
                     return render(request, template, context)
             elif typ == 'zip':
                 # Check if in DB
@@ -495,16 +488,13 @@ def static_analyzer(request, api=False):
                 context['average_cvss'], context[
                     'security_score'] = score(context['code_analysis'])
                 
-                # Dumping the custom analysis json to iterate through it in the template
+                # load the custom analysis to json to iterate through it in the template
                 context['custom_analysis'] = json.loads(context['custom_analysis'])
-                logger.info("after loading json : " + context['custom_analysis'])
-
+                
                 template = 'static_analysis/android_source_analysis.html'
                 if api:
                     return context
                 else:
-
-                    logger.info("loading source analysis template")
                     return render(request, template, context)
             else:
                 err = ('Only APK,IPA and Zipped '
