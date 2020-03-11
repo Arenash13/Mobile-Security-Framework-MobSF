@@ -1,5 +1,6 @@
 # -*- coding: utf_8 -*-
 import logging
+import json
 
 from django.conf import settings
 from django.db.models import QuerySet
@@ -72,6 +73,7 @@ def get_context_from_db_entry(db_entry: QuerySet) -> dict:
 def get_context_from_analysis(app_dic,
                               man_data_dic,
                               man_an_dic,
+                              custom_analysis,
                               code_an_dic,
                               cert_dic,
                               bin_anal,
@@ -108,6 +110,10 @@ def get_context_from_analysis(app_dic,
             'certificate_analysis': cert_dic,
             'permissions': man_an_dic['permissons'],
             'manifest_analysis': man_an_dic['manifest_anal'],
+
+            # Custom analysis
+            'custom_analysis' :  json.dumps(custom_analysis),
+
             'binary_analysis': bin_anal,
             'file_analysis': app_dic['certz'],
             'android_api': code_an_dic['api'],
@@ -132,6 +138,7 @@ def save_or_update(update_type,
                    app_dic,
                    man_data_dic,
                    man_an_dic,
+                   custom_analysis,
                    code_an_dic,
                    cert_dic,
                    bin_anal,
@@ -169,6 +176,11 @@ def save_or_update(update_type,
             'BINARY_ANALYSIS': bin_anal,
             'FILE_ANALYSIS': app_dic['certz'],
             'ANDROID_API': code_an_dic['api'],
+            
+            # Custom analysis
+            # Temporary solution, could use the dic directly by creating a one-to-many relationship
+            'CUSTOM_ANALYSIS' : json.dumps(custom_analysis),
+
             'CODE_ANALYSIS': code_an_dic['findings'],
             'URLS': code_an_dic['urls'],
             'DOMAINS': code_an_dic['domains'],

@@ -9,5 +9,5 @@ class StaticAnalysisExtension(ABC):
         raise NotImplementedError()
 
     @abstractclassmethod
-    def generate_template(self):
-        raise NotImplementedError()
+    def get_template(self):
+        raise NotImplementedError("Did you bind a template to your custom extension?")

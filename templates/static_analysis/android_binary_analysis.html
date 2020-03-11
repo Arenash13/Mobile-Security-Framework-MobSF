@@ -693,7 +693,13 @@
         </div>
     </div>
 </section>
- <!-- ===========================end permission ================================== -->
+
+<!-- ===========================end permission ================================== -->
+
+{% for custom in custom_analysis %}
+  {% include custom.template_file %}
+{% endfor %}
+ <!-- ===========================end custom analysis ================================== -->
  <a id="binary_analysis" class="anchor"></a>
  <section class="content">
   <div class="container-fluid">
@@ -739,7 +745,7 @@
                         </td>
    
                        </tr>
-                     {% endfor %}
+                    {% endfor %}
                     {% if not binary_analysis  %}
                        <tr>
                          <td>
