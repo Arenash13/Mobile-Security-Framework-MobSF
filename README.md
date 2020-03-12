@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Mobile Security Framework (MobSF)
 Version: v3.0 beta
 ![](https://cloud.githubusercontent.com/assets/4301109/20019521/cc61f7fc-a2f2-11e6-95f3-407030d9fdde.png)
@@ -107,4 +106,3 @@ MobSF is also bundled with [Android Tamer](https://androidtamer.com/tamer4-relea
 * Tim Brown (@timb_machine) - For the iOS Binary Analysis Ruleset.
 * Oscar Alfonso Diaz - (@OscarAkaElvis) - For Dockerfile contributions
 * Abhinav Saxena - (@xandfury) - For Travis CI and Logging integration
-=======
