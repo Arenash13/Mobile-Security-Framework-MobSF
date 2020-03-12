@@ -6,7 +6,7 @@ import os
 import re
 import shutil
 import json
-
+import base64
 
 from Extensions import static_analysis_extension
 
@@ -64,6 +64,10 @@ def key(data, key_name):
     """Return the data for a key_name."""
     return data.get(key_name)
 
+@register.filter
+def b64decode(data):
+    """Return a base 64 decoded string"""
+    return base64.b64decode(data.encode("utf-8")).decode("utf-8")
 
 def static_analyzer(request, api=False):
     """Do static analysis on an request and save to db."""
@@ -229,7 +233,7 @@ def static_analyzer(request, api=False):
 
                      # Perform analysis extension defined in "extension" module
                     logger.info("Starting analysis extensions...")                  
-                    custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic)
+                    custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic, man_an_dic)
                     
                     # Copy App icon
                     copy_icon(app_dic['md5'], app_dic['icon_path'])
@@ -424,7 +428,7 @@ def static_analyzer(request, api=False):
 
                              # Perform analysis extension defined in "extension" module
                         logger.info("Starting analysis extensions...")                  
-                        custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', pro_type, code_an_dic)
+                        custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', pro_type, code_an_dic, man_an_dic)
                     
                         logger.info('Connecting to Database')
                         try:

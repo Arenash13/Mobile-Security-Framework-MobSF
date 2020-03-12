@@ -1,7 +1,6 @@
 # -*- coding: utf_8 -*-
 import logging
 import json
-
 from django.conf import settings
 from django.db.models import QuerySet
 
@@ -182,7 +181,7 @@ def save_or_update(update_type,
             'ANDROID_API': code_an_dic['api'],
             
             # Custom analysis
-            # Temporary solution, could use the dic directly by creating a one-to-many relationship
+            # JSON dump will let you define the content of your custom analysis as you like
             'CUSTOM_ANALYSIS' : json.dumps(custom_analysis),
 
             'CODE_ANALYSIS': code_an_dic['findings'],

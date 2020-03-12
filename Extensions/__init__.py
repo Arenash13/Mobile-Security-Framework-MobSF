@@ -14,7 +14,7 @@ from abc import ABC
 logger = logging.getLogger(__name__)
 
 
-def static_analysis_extension(app_path, platform, typ, code_an_dic):
+def static_analysis_extension(app_path, platform, typ, code_an_dic, man_an_dic):
     """
     Will search for every class that extends the class StaticAnalysisExtension in this module and 
     start the assesments that are defined in it.
@@ -33,11 +33,10 @@ def static_analysis_extension(app_path, platform, typ, code_an_dic):
                     logger.info(
                         "Starting additional static analysis defined in {}".format(module.__name__))
                     custom_analysis = analysis.perform_analysis(
-                        app_path, typ, code_an_dic)
+                        app_path, typ, code_an_dic, man_an_dic)
                     if custom_analysis != None:
                         report = {'report': custom_analysis,
                                   'template_file': analysis.get_template()}
-
                     # Used for the custom link in the sidebar
                         if hasattr(analysis, "get_title"):
                             report['title'] = analysis.get_title()
