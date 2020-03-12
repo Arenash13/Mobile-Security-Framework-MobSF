@@ -193,7 +193,7 @@ TEMPLATES = [
         'DIRS':
             [
                 os.path.join(BASE_DIR, 'templates'),
-                os.path.join(BASE_DIR, 'Extensions/templates')
+                os.path.join(BASE_DIR, 'Extensions/Mobsf_modules/templates')
             ],
         'OPTIONS':
             {

@@ -7,6 +7,9 @@ import re
 import shutil
 import json
 
+
+from Extensions import static_analysis_extension
+
 import MalwareAnalyzer.views.Trackers as Trackers
 import MalwareAnalyzer.views.VirusTotal as VirusTotal
 from MalwareAnalyzer.views.apkid import apkid_analysis
@@ -17,8 +20,6 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.defaulttags import register
-
-import Extensions
 
 from MobSF.utils import (
     file_size,
@@ -228,7 +229,7 @@ def static_analyzer(request, api=False):
 
                      # Perform analysis extension defined in "extension" module
                     logger.info("Starting analysis extensions...")                  
-                    custom_analysis = Extensions.static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic)
+                    custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic)
                     
                     # Copy App icon
                     copy_icon(app_dic['md5'], app_dic['icon_path'])
@@ -423,7 +424,7 @@ def static_analyzer(request, api=False):
 
                              # Perform analysis extension defined in "extension" module
                         logger.info("Starting analysis extensions...")                  
-                        custom_analysis = Extensions.static_analysis_extension(app_dic['app_dir'], 'android', pro_type, code_an_dic)
+                        custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', pro_type, code_an_dic)
                     
                         logger.info('Connecting to Database')
                         try:

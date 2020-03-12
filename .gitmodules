@@ -1,0 +1,3 @@
+[submodule "Extensions/Mobsf_modules"]
+	path = Extensions/Mobsf_modules
+	url = https://github.com/Arenash13/Mobsf_modules
