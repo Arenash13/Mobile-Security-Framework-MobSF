@@ -1,7 +1,6 @@
 # -*- coding: utf_8 -*-
 """
 Shared Functions.
-
 Module providing the shared functions for static analysis of iOS and Android
 """
 import hashlib
