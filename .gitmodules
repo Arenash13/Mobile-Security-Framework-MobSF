@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-[submodule "Extensions/Mobsf_modules"]
-	path = Extensions/Mobsf_modules
-	url = https://github.com/Arenash13/Mobsf_modules
-=======
->>>>>>> e47c2014944a169745fcd757f7bbaf89a065b1ff
 [submodule "StaticAnalyzer/test_files"]
 	path = StaticAnalyzer/test_files
 	url = https://github.com/MobSF/test_files.git
+[submodule "Extensions/Mobsf_modules"]
+	path = Extensions/Mobsf_modules
+	url = https://github.com/Arenash13/Mobsf_modules
