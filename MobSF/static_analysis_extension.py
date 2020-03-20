@@ -5,7 +5,7 @@ class StaticAnalysisExtension(ABC):
     """
 
     @abstractclassmethod
-    def perform_analysis(self, app_dir, typ, code_an_dic, man_an_dic):
+    def perform_analysis(self, app_dir, typ, mobsf_analysis):
         raise NotImplementedError()
 
     @abstractclassmethod

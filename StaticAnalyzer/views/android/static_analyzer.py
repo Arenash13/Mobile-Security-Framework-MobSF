@@ -64,10 +64,12 @@ def key(data, key_name):
     """Return the data for a key_name."""
     return data.get(key_name)
 
+
 @register.filter
 def b64decode(data):
     """Return a base 64 decoded string"""
     return base64.b64decode(data.encode("utf-8")).decode("utf-8")
+
 
 def static_analyzer(request, api=False):
     """Do static analysis on an request and save to db."""
@@ -231,10 +233,20 @@ def static_analyzer(request, api=False):
                     code_an_dic['domains'] = malware_check(
                         list(set(code_an_dic['urls_list'])))
 
-                     # Perform analysis extension defined in "extension" module
-                    logger.info("Starting analysis extensions...")                  
-                    custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk', code_an_dic, man_an_dic)
-                    
+                    # Perform analysis extension defined in "extension" module
+                    logger.info("Starting analysis extensions...")
+                    custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk',
+                                                                {
+                                                                'app_dic': app_dic,
+                                                                'man_data_dic': man_data_dic,
+                                                                'man_an_dic': man_an_dic,
+                                                                'code_an_dic': code_an_dic,
+                                                                'cert_dic' : cert_dic,
+                                                                'bin_an_buff' : bin_an_buff,
+                                                                'apkid_results' : apkid_results,
+                                                                'tracker_res' : tracker_res
+                                                                })
+
                     # Copy App icon
                     copy_icon(app_dic['md5'], app_dic['icon_path'])
                     app_dic['zipped'] = 'apk'
@@ -298,8 +310,9 @@ def static_analyzer(request, api=False):
                         app_dic['md5'])
 
                 # load the custom analysis to json to iterate through it in the template
-                context['custom_analysis'] = json.loads(context['custom_analysis'])
-                
+                context['custom_analysis'] = json.loads(
+                    context['custom_analysis'])
+
                 template = 'static_analysis/android_binary_analysis.html'
                 if api:
                     return context
@@ -426,10 +439,19 @@ def static_analyzer(request, api=False):
                         code_an_dic['domains'] = malware_check(
                             list(set(code_an_dic['urls_list'])))
 
-                             # Perform analysis extension defined in "extension" module
-                        logger.info("Starting analysis extensions...")                  
-                        custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', pro_type, code_an_dic, man_an_dic)
-                    
+                        # Perform analysis extension defined in "extension" module
+                        logger.info("Starting analysis extensions...")
+                        custom_analysis = static_analysis_extension(app_dic['app_dir'], 'android', 'apk',
+                                                                {
+                                                                'app_dic': app_dic,
+                                                                'man_data_dic': man_data_dic,
+                                                                'man_an_dic': man_an_dic,
+                                                                'code_an_dic': code_an_dic,
+                                                                'cert_dic' : cert_dic,
+                                                                'bin_an_buff' : bin_an_buff,
+                                                                'apkid_results' : apkid_results,
+                                                                'tracker_res' : tracker_res
+                                                                })
                         logger.info('Connecting to Database')
                         try:
                             # SAVE TO DB
@@ -492,10 +514,11 @@ def static_analyzer(request, api=False):
                             return render(request, template, ctx)
                 context['average_cvss'], context[
                     'security_score'] = score(context['code_analysis'])
-                
+
                 # load the custom analysis to json to iterate through it in the template
-                context['custom_analysis'] = json.loads(context['custom_analysis'])
-                
+                context['custom_analysis'] = json.loads(
+                    context['custom_analysis'])
+
                 template = 'static_analysis/android_source_analysis.html'
                 if api:
                     return context
