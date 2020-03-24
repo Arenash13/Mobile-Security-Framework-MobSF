@@ -13,7 +13,6 @@ from abc import ABC
 
 logger = logging.getLogger(__name__)
 
-# code_an_dic, man_an_dic
 def static_analysis_extension(app_path, platform, typ, mobsf_analysis):
     """
     Will search for every class that extends the class StaticAnalysisExtension in this module and 
