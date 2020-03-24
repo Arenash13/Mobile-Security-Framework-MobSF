@@ -28,18 +28,17 @@ def static_analysis_extension(app_path, platform, typ, mobsf_analysis):
             for name, obj in inspect.getmembers(module):
                 if(inspect.isclass(obj) and issubclass(obj, StaticAnalysisExtension) and obj.__name__ != StaticAnalysisExtension.__name__):
                     analysis_class = getattr(module, name)
-                    analysis = analysis_class()
+                    analysis = analysis_class(app_path, typ, mobsf_analysis)
                     logger.info(
                         "Starting additional static analysis defined in {}".format(module.__name__))
-                    custom_analysis = analysis.perform_analysis(
-                        app_path, typ, mobsf_analysis)
+                    custom_analysis = analysis.perform_analysis()
                     if custom_analysis != None:
                         report = {'report': custom_analysis,
                                   'template_file': analysis.get_template()}
                     # Used for the custom link in the sidebar
                         if hasattr(analysis, "get_title"):
                             report['title'] = analysis.get_title()
-                        custom_analysis_list.append(report)
+                        custom_analysis_list.append(report)                
         return custom_analysis_list
     except Exception as e:
         logger.exception("Performing custom analysis")

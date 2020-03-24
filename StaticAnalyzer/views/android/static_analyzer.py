@@ -246,7 +246,6 @@ def static_analyzer(request, api=False):
                                                                 'apkid_results' : apkid_results,
                                                                 'tracker_res' : tracker_res
                                                                 })
-
                     # Copy App icon
                     copy_icon(app_dic['md5'], app_dic['icon_path'])
                     app_dic['zipped'] = 'apk'
