@@ -12,6 +12,9 @@ def b64decode(data):
     """Return a base 64 decoded string"""
     return base64.b64decode(data.encode("utf-8")).decode("utf-8")
 
+@register.filter
+def path_to_package(path):
+    return path.replace('/', '.')
 # def export_custom_filters(register):
 #     logger.info(register.filters)
 #     register.filter('b64decode', b64decode) 
