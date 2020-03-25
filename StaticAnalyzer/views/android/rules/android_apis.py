@@ -416,6 +416,16 @@ APIS = [
         'input_case': InputCase.exact,
     },
     {
+        'desc': 'Key interfaces from java.security',
+        'type': MatchType.string,
+        'match': Match.string_and_or,
+        'string1': 'java.security',
+        'string_or1': 'PrivateKey',
+        'string_or2': 'Key',
+        'string_or3': 'PublicKey',
+        'input_case': InputCase.exact,
+    },
+    {
         'desc': 'GPS Location',
         'type': MatchType.string,
         'match': Match.string_and_or,
