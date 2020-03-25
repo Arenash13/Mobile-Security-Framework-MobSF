@@ -12,7 +12,6 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.template.defaulttags import register
 
 from MobSF.forms import FormUtil, UploadFileForm
 from MobSF.utils import (api_key, is_dir_exists, is_file_exists,
@@ -28,13 +27,6 @@ from StaticAnalyzer.models import (RecentScansDB,
 LINUX_PLATFORM = ['Darwin', 'Linux']
 HTTP_BAD_REQUEST = 400
 logger = logging.getLogger(__name__)
-
-
-@register.filter
-def key(d, key_name):
-    """To get dict element by key name in template."""
-    return d.get(key_name)
-
 
 def index(request):
     """Index Route."""

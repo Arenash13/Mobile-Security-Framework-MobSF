@@ -28,12 +28,6 @@ from MobSF.utils import (is_file_exists,
 logger = logging.getLogger(__name__)
 
 
-@register.filter
-def key(d, key_name):
-    """To get dict element by key name in template."""
-    return d.get(key_name)
-
-
 def view_report(request):
     """Dynamic Analysis Report Generation."""
     logger.info('Dynamic Analysis Report Generation')

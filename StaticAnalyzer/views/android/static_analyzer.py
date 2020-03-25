@@ -19,7 +19,6 @@ from django.template import loader
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.template.defaulttags import register
 
 from MobSF.utils import (
     file_size,
@@ -57,19 +56,6 @@ except ImportError:
 
 
 logger = logging.getLogger(__name__)
-
-
-@register.filter
-def key(data, key_name):
-    """Return the data for a key_name."""
-    return data.get(key_name)
-
-
-@register.filter
-def b64decode(data):
-    """Return a base 64 decoded string"""
-    return base64.b64decode(data.encode("utf-8")).decode("utf-8")
-
 
 def static_analyzer(request, api=False):
     """Do static analysis on an request and save to db."""

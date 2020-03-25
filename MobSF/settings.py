@@ -198,6 +198,9 @@ TEMPLATES = [
         'OPTIONS':
             {
                 'debug': True,
+                'libraries':{
+                    'filters': 'MobSF.templatetags.filters',
+                    }
             },
     },
 ]
