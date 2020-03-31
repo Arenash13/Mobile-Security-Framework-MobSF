@@ -40,9 +40,9 @@ class StaticAnalyzerAndroid(models.Model):
     CERTIFICATE_ANALYSIS = models.TextField()
     MANIFEST_ANALYSIS = models.TextField()
 
-    #Custom analysis results
+    # Custom analysis results
     CUSTOM_ANALYSIS = models.TextField(default={})
-    
+
     BINARY_ANALYSIS = models.TextField()
     FILE_ANALYSIS = models.TextField()
     ANDROID_API = models.TextField()
@@ -83,9 +83,9 @@ class StaticAnalyzerIOS(models.Model):
     BINARY_ANALYSIS = models.TextField(default=[])
     IOS_API = models.TextField(default={})
 
-    #Custom analysis results
+    # Custom analysis results
     CUSTOM_ANALYSIS = models.TextField(default={})
-    
+
     CODE_ANALYSIS = models.TextField(default={})
     FILE_ANALYSIS = models.TextField(default=[])
     LIBRARIES = models.TextField(default=[])

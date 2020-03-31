@@ -162,7 +162,7 @@ INSTALLED_APPS = (
     'DynamicAnalyzer',
     'MobSF',
     'MalwareAnalyzer',
-    'Extensions'
+    'Extensions',
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -193,14 +193,14 @@ TEMPLATES = [
         'DIRS':
             [
                 os.path.join(BASE_DIR, 'templates'),
-                os.path.join(BASE_DIR, 'Extensions/Mobsf_modules/templates')
+                os.path.join(BASE_DIR, 'Extensions/Mobsf_modules/templates'),
             ],
         'OPTIONS':
             {
                 'debug': True,
-                'libraries':{
+                'libraries': {
                     'filters': 'MobSF.templatetags.filters',
-                    }
+                },
             },
     },
 ]

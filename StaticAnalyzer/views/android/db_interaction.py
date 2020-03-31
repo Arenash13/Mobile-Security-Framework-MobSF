@@ -1,6 +1,7 @@
 # -*- coding: utf_8 -*-
 import logging
 import json
+
 from django.conf import settings
 from django.db.models import QuerySet
 
@@ -55,7 +56,9 @@ def get_context_from_db_entry(db_entry: QuerySet) -> dict:
             'android_api': python_dict(db_entry[0].ANDROID_API),
 
             # Custom analysis
-            'custom_analysis' : str(python_dict(db_entry[0].CUSTOM_ANALYSIS)).replace("\'", "\""),
+            'custom_analysis': str(
+                python_dict(db_entry[0].CUSTOM_ANALYSIS))
+            .replace('\'', '\"'),
 
             'code_analysis': python_dict(db_entry[0].CODE_ANALYSIS),
             'urls': python_list(db_entry[0].URLS),
@@ -116,7 +119,7 @@ def get_context_from_analysis(app_dic,
             'manifest_analysis': man_an_dic['manifest_anal'],
 
             # Custom analysis
-            'custom_analysis' :  json.dumps(custom_analysis),
+            'custom_analysis': json.dumps(custom_analysis),
 
             'binary_analysis': bin_anal,
             'file_analysis': app_dic['certz'],
@@ -180,10 +183,11 @@ def save_or_update(update_type,
             'BINARY_ANALYSIS': bin_anal,
             'FILE_ANALYSIS': app_dic['certz'],
             'ANDROID_API': code_an_dic['api'],
-            
+
             # Custom analysis
-            # JSON dump will let you define the content of your custom analysis as you like
-            'CUSTOM_ANALYSIS' : json.dumps(custom_analysis),
+            # JSON dump will let you define
+            # the content of your custom analysis as you like
+            'CUSTOM_ANALYSIS': json.dumps(custom_analysis),
 
             'CODE_ANALYSIS': code_an_dic['findings'],
             'URLS': code_an_dic['urls'],

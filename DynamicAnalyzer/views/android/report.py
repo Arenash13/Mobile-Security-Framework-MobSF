@@ -7,7 +7,6 @@ import io
 
 from django.conf import settings
 from django.shortcuts import render
-from django.template.defaulttags import register
 from django.utils.html import escape
 
 from DynamicAnalyzer.views.android.analysis import (generate_download,

@@ -1,8 +1,13 @@
 from abc import ABC, abstractclassmethod
+
+
 class StaticAnalysisExtension(ABC):
     """
-    This interface allows you to run custom analysis scripts that will be added to MobSF report
+    This interface allows you to run custom analysis scripts.
+
+    Their result will be added to the MobSF report.
     """
+
     def __init__(self, app_dir, typ, mobsf_analysis):
         self.app_dir = app_dir
         self.typ = typ
@@ -13,4 +18,5 @@ class StaticAnalysisExtension(ABC):
         raise NotImplementedError()
 
     def get_template(self):
-        raise NotImplementedError("Did you bind a template to your custom extension?")
+        raise NotImplementedError(('Did you bind a template '
+                                   'to your custom extension?'))

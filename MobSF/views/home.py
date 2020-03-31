@@ -28,6 +28,7 @@ LINUX_PLATFORM = ['Darwin', 'Linux']
 HTTP_BAD_REQUEST = 400
 logger = logging.getLogger(__name__)
 
+
 def index(request):
     """Index Route."""
     mimes = (settings.APK_MIME
