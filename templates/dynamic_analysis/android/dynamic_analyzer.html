@@ -734,7 +734,7 @@ $("#frida_spawn").click(function() {
       $('#apimon').show();
     else
       $('#apimon').hide();
-
+    
     var auxiliary_hooks = [];
     $.each($("input[name='auxiliary']:checked"), function(){            
         auxiliary_hooks.push($(this).val());

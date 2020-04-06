@@ -51,6 +51,7 @@ class Environment:
     def run_subprocess_verify_output(self, command):
         """Run subprocess and verify execution."""
         out = subprocess.check_output(command)
+        logger.info(command)
         self.wait(2)
         return self.check_connect_error(out)
 
@@ -104,7 +105,7 @@ class Environment:
         if shell:
             args += ['shell']
         args += cmd_list
-
+        logger.info(args)
         try:
             result = subprocess.check_output(args)
             return result

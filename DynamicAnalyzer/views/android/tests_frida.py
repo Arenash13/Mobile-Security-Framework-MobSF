@@ -26,6 +26,8 @@ from MobSF.utils import (
     is_safe_path,
     print_n_send_error_response)
 
+from Extensions import dynamic_analysis_extension
+
 logger = logging.getLogger(__name__)
 
 # AJAX
@@ -102,6 +104,10 @@ def instrument(request):
                           extras,
                           code)
         trd = threading.Thread(target=frida_obj.connect)
+        
+        # Entry point for Frida dynamic analysis extension
+        dynamic_analysis_extension('android', 'frida')
+
         trd.daemon = True
         trd.start()
         data = {'status': 'ok'}

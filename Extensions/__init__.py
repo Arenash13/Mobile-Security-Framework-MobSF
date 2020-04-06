@@ -3,9 +3,9 @@ import importlib
 import inspect
 import pkgutil
 
-from MobSF.static_analysis_extension import StaticAnalysisExtension
+from MobSF.analysis_extension import StaticAnalysisExtension, DynamicAnalysisExtension
 
-from Extensions.Mobsf_modules import static_analysis
+from Extensions.Mobsf_modules import dynamic_analysis, static_analysis
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +43,35 @@ def static_analysis_extension(app_path, platform, typ, mobsf_analysis):
         logger.info(custom_analysis_list)
         return custom_analysis_list
     except Exception as e:
-        logger.exception('Performing custom analysis')
+        logger.exception('Performing custom static analysis')
         logger.exception('reason : %s', str(e))
         return custom_analysis_list
+
+
+def dynamic_analysis_extension(platform, motor):
+    """
+    Search for every class that extends the class DynamicAnalysisExtension
+    in this module and start the assessments that are defined in it.    
+    """
+    try:
+        module_motor = importlib.import_module('{}.{}.{}'.format(dynamic_analysis.__name__, platform, motor))
+        for(_, name, _) in pkgutil.iter_modules(module_motor.__path__):
+            module = importlib.import_module(
+                '{}.{}.{}.{}'.format(dynamic_analysis.__name__, platform,
+                motor, name)
+            )
+            for name, obj in inspect.getmembers(module):
+                if(inspect.isclass(obj)
+                   and issubclass(obj, DynamicAnalysisExtension)
+                   and obj.__name__ != DynamicAnalysisExtension.__name__):
+                   
+                   analysis_class = getattr(module, name)
+                   analysis = analysis_class()
+                   logger.info(
+                       'Starting additional dynamic analysis defined in %s',
+                       module.__name__
+                   ) 
+
+    except Exception as e:
+        logger.exception('Performing custom dynamic analysis')
+        logger.exception('reason : %s', str(e))
