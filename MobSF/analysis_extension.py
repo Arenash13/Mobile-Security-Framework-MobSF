@@ -23,7 +23,12 @@ class StaticAnalysisExtension(ABC):
 
 
 class DynamicAnalysisExtension(ABC):
-    
+
+    def __init__(self, md5_hash, package):
+        self.md5_hash = md5_hash
+        self.package = package
+
+
     @abstractclassmethod
-    def perform_analysis(self):
+    def perform_analysis(self, event):
         raise NotImplementedError()
