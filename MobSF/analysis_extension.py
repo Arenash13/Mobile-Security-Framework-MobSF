@@ -30,5 +30,5 @@ class DynamicAnalysisExtension(ABC):
 
 
     @abstractclassmethod
-    def perform_analysis(self, event):
+    def perform_analysis(self):
         raise NotImplementedError()

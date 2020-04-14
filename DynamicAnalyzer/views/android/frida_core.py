@@ -99,11 +99,10 @@ class Frida:
         else:
             logger.error('[Frida] %s', message)
 
-    def connect(self, event):
+    def connect(self):
         """Connect to Frida Server."""
         session = None
         try:
-            event.clear()
             env = Environment()
             self.clean_up()
             env.run_frida_server()
@@ -115,7 +114,7 @@ class Frida:
             session = device.attach(pid)
         except frida.ServerNotRunningError:
             logger.warning('Frida server is not running')
-            self.connect(event)
+            self.connect()
         except frida.TimedOutError:
             logger.error('Timed out while waiting for device to appear')
         except (frida.ProcessNotFoundError,
@@ -124,7 +123,6 @@ class Frida:
             pass
         except Exception:
             logger.exception('Error Connecting to Frida')
-        event.set()
         try:
             if session:
                 script = session.create_script(self.get_script())

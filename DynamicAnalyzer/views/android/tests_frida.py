@@ -103,15 +103,14 @@ def instrument(request):
                           auxiliary_hooks.split(','),
                           extras,
                           code)
-        event = threading.Event()
-        trd = threading.Thread(target=frida_obj.connect, args=[event])
+        trd = threading.Thread(target=frida_obj.connect)
         trd.daemon = True
         trd.start()
         # Entry point for Frida dynamic analysis extension
-        dynamic_analysis = dynamic_analysis_extension('android', 'frida', md5_hash, package)
-        for custom in dynamic_analysis:
-            threading.Thread(target=custom.perform_analysis, args=[event]).start()
-        data = {'status': 'ok'}
+        # dynamic_analysis = dynamic_analysis_extension('android', 'frida', md5_hash, package)
+        # for custom in dynamic_analysis:
+        #     threading.Thread(target=custom.perform_analysis).start()
+        # data = {'status': 'ok'}
     except Exception as exp:
         logger.exception('Instrumentation failed')
         data = {'status': 'failed', 'message': str(exp)}
