@@ -89,28 +89,33 @@ RUN \
 # Copy source code
 COPY . .
 
+
 # Enable Use Home Directory and set adb path
-RUN sed -i 's/USE_HOME = False/USE_HOME = True/g' MobSF/settings.py && \
-    sed -i "s#ADB_BINARY = ''#ADB_BINARY = '/usr/bin/adb'#" MobSF/settings.py
+RUN sed -i "s#ADB_BINARY = ''#ADB_BINARY = '/usr/bin/adb'#" MobSF/settings.py
+# sed -i 's/USE_HOME = False/USE_HOME = True/g' MobSF/settings.py && \
 
 # Postgres support is set to false by default
 ARG POSTGRES=False
+
 # Check if Postgres support needs to be enabled
 WORKDIR /root/Mobile-Security-Framework-MobSF/scripts
-RUN chmod +x postgres_support.sh; sync; ./postgres_support.sh $POSTGRES
+#RUN chmod +x postgres_support.sh; sync; ./postgres_support.sh $POSTGRES
 WORKDIR /root/Mobile-Security-Framework-MobSF
 
 # Add apktool working path
 RUN mkdir -p /root/.local/share/apktool/framework
 
-# Expose MobSF Port
-EXPOSE 8000
-# MobSF Proxy
-EXPOSE 1337
+# # Expose MobSF Port
+# EXPOSE 8000
+# # MobSF Proxy
+# EXPOSE 1337
 
 RUN python3 manage.py makemigrations && \
     python3 manage.py makemigrations StaticAnalyzer && \
     python3 manage.py migrate
 
-# Run MobSF
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "MobSF.wsgi:application", "--workers=1", "--threads=10", "--timeout=1800"]
+# Run MobSF 
+RUN python3 manage.py runserver
+#CMD ["python", "manage.py", "runserver"]
+# CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "MobSF.asgi:application"]
+#CMD ["gunicorn", "-b", "0.0.0.0:8000", "MobSF.wsgi:application", "--workers=1", "--threads=10", "--timeout=1800"]

@@ -20,32 +20,16 @@ services:
       dockerfile: Dockerfile
       args:
        - POSTGRES=True
-    depends_on:
-      - redis
     volumes:
       - /MobSF_data:/root/.MobSF
+    devices:
+      - '/dev/bus/usb:/dev/bus/usb'
+    privileged: true
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - postgres:postgres
+      - redis:redis
     ports:
      - "8000:8000"
-
-
-# version: '3'
-# services:
-#   postgres:
-#     image: "postgres:latest"
-#     restart: always
-#     volumes:
-#       - /Postgres_data/var/lib/postgresql:/var/lib/postgresql
-#     environment:
-#       - POSTGRES_USER=postgres
-#       - POSTGRES_PASSWORD=password
-#       - POSTGRES_DB=mobsf
-#   mobsf:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile
-#       args:
-#        - POSTGRES=True
-#     volumes:
-#       - /MobSF_data:/root/.MobSF
-#     ports:
-#      - "8000:8000"

@@ -6,5 +6,5 @@ import warnings
 
 warnings.filterwarnings('ignore', category=UserWarning, module='cffi')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MobSF.settings')
-
+django.setup()
 application = get_asgi_application()
