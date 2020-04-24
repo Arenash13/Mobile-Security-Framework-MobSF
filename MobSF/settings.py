@@ -162,7 +162,11 @@ INSTALLED_APPS = (
     'DynamicAnalyzer',
     'MobSF',
     'MalwareAnalyzer',
+    
     'Extensions',
+    'NvisoDynamicAnalysis',
+    'channels',
+    'whitenoise.runserver_nostatic',
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -180,7 +184,9 @@ MIDDLEWARE = (
     'MobSF.views.api.rest_api_middleware.RestApiAuthMiddleware',
 )
 ROOT_URLCONF = 'MobSF.urls'
-WSGI_APPLICATION = 'MobSF.wsgi.application'
+# WSGI_APPLICATION = 'MobSF.wsgi.application'
+# Move from WSGI to ASGI application
+ASGI_APPLICATION = 'MobSF.routing.application'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = os.getenv('TIME_ZONE', 'UTC')
 USE_I18N = True
@@ -194,6 +200,7 @@ TEMPLATES = [
             [
                 os.path.join(BASE_DIR, 'templates'),
                 os.path.join(BASE_DIR, 'Extensions/Mobsf_modules/templates'),
+                os.path.join(BASE_DIR, 'NvisoDynamicAnalysis/templates')
             ],
         'OPTIONS':
             {
@@ -204,10 +211,25 @@ TEMPLATES = [
             },
     },
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+            "capacity" : 1500,
+        },
+    },
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# For development mode
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/'),]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # 256MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 268435456
@@ -445,6 +467,11 @@ LOGGING = {
             'propagate': False,
         },
         'Extensions': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'NvisoDynamicAnalysis': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             'propagate': False,

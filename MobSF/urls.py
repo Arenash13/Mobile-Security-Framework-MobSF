@@ -25,7 +25,7 @@ from StaticAnalyzer.views.windows import windows
 from StaticAnalyzer.views.android import static_analyzer as android_sa
 from StaticAnalyzer.views.ios import static_analyzer as ios_sa
 from StaticAnalyzer.views.ios import view_source as io_view_source
-#from Extensions.Mobsf_modules.urls import add_custom_urls
+from NvisoDynamicAnalysis.urls import add_custom_urls
 
 urlpatterns = [
     # General
@@ -111,5 +111,8 @@ urlpatterns = [
 
 ]
 
+# dynamically change the url to access dynamic analysis
+# from MobSF one to Nviso 
+add_custom_urls(urlpatterns)
 
 utils.print_version()

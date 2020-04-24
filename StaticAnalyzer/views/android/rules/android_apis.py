@@ -300,7 +300,7 @@ APIS = [
     {
         'desc': 'Key interfaces from java.security',
         'type': StringAndOr.__name__,
-        'string1': ['java.security',
+        'match': ['java.security',
                     ['PrivateKey', 'Key',
                     'PublicKey']],
         'input_case': InputCase.exact,
