@@ -28,3 +28,4 @@ http-tools==1.1.0
 # Nviso
 channels>=2.4.0
 channels-redis #version
+websockets
