@@ -105,8 +105,8 @@ WORKDIR /root/Mobile-Security-Framework-MobSF
 # Add apktool working path
 RUN mkdir -p /root/.local/share/apktool/framework
 
-# # Expose MobSF Port
-# EXPOSE 8000
+# Expose MobSF Port
+EXPOSE 8000
 # # MobSF Proxy
 # EXPOSE 1337
 
@@ -115,7 +115,6 @@ RUN python3 manage.py makemigrations && \
     python3 manage.py migrate
 
 # Run MobSF 
-RUN python3 manage.py runserver
-#CMD ["python", "manage.py", "runserver"]
-# CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "MobSF.asgi:application"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "MobSF.asgi:application"]
 #CMD ["gunicorn", "-b", "0.0.0.0:8000", "MobSF.wsgi:application", "--workers=1", "--threads=10", "--timeout=1800"]
