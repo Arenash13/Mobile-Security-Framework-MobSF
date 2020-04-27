@@ -1,3 +1,6 @@
 [submodule "NvisoDynamicAnalysis"]
 	path = NvisoDynamicAnalysis
 	url = ssh://git@github.com/Arenash13/NvisoDynamicAnalysis
+[submodule "Extensions/Mobsf_modules"]
+	path = Extensions/Mobsf_modules
+	url = ssh://git@github.com/Arenash13/Mobsf_modules
