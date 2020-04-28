@@ -40,7 +40,6 @@ def static_analysis_extension(app_path, platform, typ, mobsf_analysis):
                         if hasattr(analysis, 'get_title'):
                             report['title'] = analysis.get_title()
                         custom_analysis_list.append(report)
-        logger.info(custom_analysis_list)
         return custom_analysis_list
     except Exception as e:
         logger.exception('Performing custom static analysis')
