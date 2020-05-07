@@ -22,9 +22,10 @@ services:
        - POSTGRES=True
     volumes:
       - /MobSF_data:/root/.MobSF
-    devices:
-      - '/dev/bus/usb:/dev/bus/usb'
-    privileged: true
+      - ./uploads:/root/Mobile-Security-Framework-MobSF/uploads
+    # devices:
+    #   - '/dev/bus/usb:/dev/bus/usb'
+    # privileged: true
     depends_on:
       - postgres
       - redis
